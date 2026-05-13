@@ -71,6 +71,12 @@ public class PatientService {
         // registered Date kita tidak masukkan karena kita tidak allow registered date di alter datanya
         Patient updatedPatient = patientRepository.save(patient);
         return PatientMapper.toDTO(updatedPatient);
-
     }
+
+    // kenapa void? karena ga akan ada hal yang mau di return disini
+    public void deletePatient(UUID id) {
+        patientRepository.deleteById(id);
+    }
+
+
 }

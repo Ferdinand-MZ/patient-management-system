@@ -4,6 +4,8 @@ import com.pm.patientservice.dto.PatientRequestDTO;
 import com.pm.patientservice.dto.PatientResponseDTO;
 import com.pm.patientservice.dto.validators.CreatePatientValidationGroup;
 import com.pm.patientservice.service.PatientService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.groups.Default;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/patients") // https://localhost:4000/patients
+@Tag(name = "Patient", description = "API for managing Patients")
 public class PatientController {
     private final PatientService patientService;
 
@@ -25,6 +28,7 @@ public class PatientController {
 
     //  Penggunaan GetMapping ini memberi tahu kalo create untuk handle semua get requests
     @GetMapping
+    @Operation(summary = "Get Patients")
     public ResponseEntity<List<PatientResponseDTO>> getPatients() {
         List<PatientResponseDTO> patients = patientService.getPatients();
 
@@ -34,6 +38,7 @@ public class PatientController {
 
     //  Kalau mau create, pakai postmapping
     @PostMapping
+    @Operation(summary = "Create a new Patient")
 
 //    fungsi dari @Valid adalah perform validation ke patientrequestdto untuk mastiin
 //    semua properti match dengan validation anotasi yang kita tambahin di patientrequestdto object
@@ -51,6 +56,7 @@ public class PatientController {
 
     // localhost:4000/patients/{id}
     @PutMapping("/{id}")
+    @Operation(summary = "Update a new Patient")
     public ResponseEntity<PatientResponseDTO> updatePatient(@PathVariable UUID id,
 
         // kegunaan validated disini adalah untuk melakukan validasi dari semua defaults di dto
@@ -60,4 +66,13 @@ public class PatientController {
         return ResponseEntity.ok().body(patientResponseDTO);
     }
 
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a Patient")
+    public ResponseEntity<PatientResponseDTO> deletePatient(@PathVariable UUID id) {
+
+        // yang dilakukan kode ini adalah memanggil patientService dan method delete Patient
+        // yang kemudian return responseEntity dengan konten baru dan kode 204 (204 berarti no content) dan akan menyelesaikan request
+        patientService.deletePatient(id);
+        return ResponseEntity.noContent().build();
+    }
 }
