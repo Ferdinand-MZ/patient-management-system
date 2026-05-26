@@ -52,7 +52,6 @@ public class PatientService {
             throw new EmailAlreadyExistsException("A patient with this email" + "already exists " + patientRequestDTO.getEmail());
         }
 
-
         // disini kita ga bisa pakai patientRequestDTO sebagai parameter karena type nya ga kompatibel (string semua)
         //  Patient newPatient = patientRepository.save(patientRequestDTO)
         // jadi harus convert patient request dto kita jadi patient entity model object
@@ -67,7 +66,6 @@ public class PatientService {
         kafkaProducer.sendEvent(newPatient);
 
         return PatientMapper.toDTO(newPatient);
-
     }
 
     public PatientResponseDTO updatePatient(UUID id, PatientRequestDTO patientRequestDTO) {
