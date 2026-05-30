@@ -1,12 +1,13 @@
 # Patient Management System
 
-A microservices-based patient management backend built with **Spring Boot**, featuring JWT authentication, gRPC inter-service communication, and Kafka event streaming — deployed on AWS (LocalStack for local dev) using ECS Fargate.
+A microservices-based patient management backend built with **Spring Boot**, featuring JWT authentication, gRPC inter-service communication, and Kafka event streaming. also deployed on AWS (LocalStack for local dev) using ECS Fargate.
 
 ---
 
 ## System Architecture
-<img width="137" height="150" alt="patient-management-system" src="https://github.com/user-attachments/assets/3538bbac-a0ee-46bd-856f-0dbd88b50bd8" />
-
+<p align="center">
+<img width="700" alt="patient-management-system" src="https://github.com/user-attachments/assets/3538bbac-a0ee-46bd-856f-0dbd88b50bd8" />
+</p>
 
 ### Communication patterns
 
@@ -296,7 +297,7 @@ The `infrastructure/` module is an AWS CDK app written in Java that provisions:
 | Application Load Balancer | Fronts the API Gateway only |
 | CloudWatch Logs | 1-day retention per service |
 
-All services run without a public IP — only the API Gateway is exposed via the ALB.
+All services run without a public IP because only the API Gateway is exposed via the ALB.
 
 **Startup dependency order:**
 ```
